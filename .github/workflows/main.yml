@@ -24,6 +24,18 @@ jobs:
         with:
          name: gitversion
          path: version.txt
+      - name: Get version.txt
+        uses: actions/download-artifact@v2
+        with:
+          name: gitversion
+      - name: Create New File Without Newline Char from version.txt
+        run: tr -d '\n' < version.txt > version1.txt
+      - name: Read Version
+        id: version
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: version1.txt
+
 
   build:
     runs-on: ubuntu-latest
