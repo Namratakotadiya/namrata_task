@@ -36,16 +36,16 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Get version.txt
-          uses: actions/download-artifact@v2
-          with:
-            name: gitversion
+        uses: actions/download-artifact@v2
+        with:
+          name: gitversion
       - name: Create new file without newline char from version.txt
         run: tr -d '\n' < version.txt > version1.txt
       - name: Read version
         id: version
         uses: juliangruber/read-file-action@v1
-          with:
-            path: version1.txt
+        with:
+          path: version1.txt
       - name: Update version in YAML
         run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
       - uses: actions/setup-java@v1
