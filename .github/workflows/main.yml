@@ -52,12 +52,12 @@ jobs:
         run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
-         with:
-         name: gitversion
-         path: version.txt
+        with:
+          name: gitversion
+          path: version.txt
       - name: Get version.txt
         uses: actions/download-artifact@v2
-          with:
+        with:
           name: gitversion
       - name: Create New File Without Newline Char from version.txt
         run: tr -d '\n' < version.txt > version1.txt
@@ -65,7 +65,7 @@ jobs:
         id: version
         uses: juliangruber/read-file-action@v1
         with:
-        path: version1.txt
+          path: version1.txt
       - name: Update Version in YAML
         run: sed -i 's/99.99.99+99/${{steps.version.outputs.content}}+${{github.run_number}}/g' pubspec.yaml
 
