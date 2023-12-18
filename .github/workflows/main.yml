@@ -65,7 +65,7 @@ jobs:
           trim: true
       - name: Display artifact contents
         run: |
-          cat gitversion/version.txt
+          cat ./version.txt
       - name: Debug GitVersion Output
         run: |
          echo "GitVersion Output: ${{ toJson(steps.gitversion.outputs)  }}"
