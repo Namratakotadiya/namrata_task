@@ -75,8 +75,8 @@ jobs:
       - name: Read version
         id: version
         run: echo "::set-output name=content::$(cat version.txt)"
-      - name: Print version.txt content
-        run: cat version.txt
+      - name: Print version.txt content in build job
+        run: echo "${{ steps.version.outputs.content }}"
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
