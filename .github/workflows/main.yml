@@ -65,7 +65,7 @@ jobs:
           trim: true
       - name: Read version1
         id: version2
-        run: echo "::set-output name=content::$(cat ./version.txt)"
+        run: echo "CONTENT=$(cat ./version.txt)" >> $GITHUB_ENV
       - name: Debug GitVersion Output
         run: |
          echo "GitVersion Output: ${{ toJson(steps.gitversion.outputs)  }}"
