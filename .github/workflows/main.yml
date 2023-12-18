@@ -64,7 +64,7 @@ jobs:
           path: ./version.txt
           trim: true
       - name: Read version1
-        id: version
+        id: version2
         run: echo "::set-output name=content::$(cat ./version.txt)"
       - name: Debug GitVersion Output
         run: |
