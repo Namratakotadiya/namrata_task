@@ -79,7 +79,8 @@ jobs:
         id: version
         run: echo "::set-output name=content::$(cat version.txt)"
       - name: Print version.txt content in build job
-        run: echo "${{ needs.version.outputs.env.GitVersion_FullSemVer }}"
+        run: |  
+         echo "${{ needs.version.outputs.env.GitVersion_FullSemVer }}"
 
 #      - uses: actions/setup-java@v1
 #        with:
