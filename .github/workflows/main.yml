@@ -50,7 +50,7 @@ jobs:
           path: version1.txt
       - name: Debugging Info
         run: |
-          echo "Content: ${{ 1.0.2 }}"
+          echo "Content: ${{ steps.version.outputs.content }}"
           echo "Run Number: ${{ github.run_number }}"
           sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
           cat pubspec.yaml
