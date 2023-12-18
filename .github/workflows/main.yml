@@ -62,6 +62,10 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./version.txt
+          trim: true
+      - name: Read version1
+        id: version
+        run: echo "::set-output name=content::$(cat ./version.txt)"
       - name: Debug GitVersion Output
         run: |
          echo "GitVersion Output: ${{ toJson(steps.gitversion.outputs)  }}"
