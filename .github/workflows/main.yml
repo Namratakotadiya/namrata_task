@@ -40,7 +40,7 @@ jobs:
       - name: Debug version.txt
         run: cat version.txt
       - name: Print GitVersion_FullSemVer
-        run:
+        run: |
           echo "GitVersion_FullSemVer: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
       - name: Update version in YAML
         run: | 
