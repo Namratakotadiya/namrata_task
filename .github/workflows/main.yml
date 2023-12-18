@@ -39,6 +39,11 @@ jobs:
           echo "GitVersion Output: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
       - name: Debug version.txt
         run: cat version.txt
+      - name: Update version in YAML
+        run: |
+          sed -i 's/version: [ 0-9 ]\+\.[0-9]\+\.[0-9]\+/version: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}/g' pubspec.yaml
+      - name: Print pubspec.yaml
+        run: cat pubspec.yaml
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
