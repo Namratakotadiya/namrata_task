@@ -53,16 +53,20 @@ jobs:
          sed -i "s/version: $current_version/version: ${{ env.GitVersion_FullSemVer }}/g" pubspec.yaml
       - name: Print pubspec.yaml
         run: cat pubspec.yaml
-      - name: Upload version.txt
+      - name: Upload version.txt as an artifact
         uses: actions/upload-artifact@v2
         with:
-          name: gitversion
+          name: version-artifact
           path: version.txt
         if: success()
       - name: Handle error
         if: failure()
         run: | 
           echo "Workflow failed: ${{ job.status }}"
+      - name: Download version.txt artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: version-artifact
 
   build:
     name: Build APK and Create release
