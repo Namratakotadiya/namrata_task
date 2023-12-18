@@ -57,15 +57,16 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: gitversion
+      - name: Display artifact contents
+        run: |
+          chmod +r gitversion/version.txt
+          cat gitversion/version.txt
       - name: Read version
         id: version
         uses: juliangruber/read-file-action@v1
         with:
           path: ./version.txt
           trim: true
-      - name: Display artifact contents
-        run: |
-          cat ./version.txt
       - name: Debug GitVersion Output
         run: |
          echo "GitVersion Output: ${{ toJson(steps.gitversion.outputs)  }}"
