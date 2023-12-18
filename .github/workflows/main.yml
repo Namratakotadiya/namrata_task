@@ -71,22 +71,10 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: gitversion
+          path: .
       - name: Read version
-        run: cat version.txt
-      - name: Debug GitVersion Output
-        run: |
-         echo "GitVersion Output: ${{ toJson(steps.gitversion.outputs)  }}"
-      - name: Debugging Info
-        run: |
-          echo "Content: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
-          echo "Run Number: ${{ github.run_number }}"
-          sed -i 's/99.99.99+99/${{ env.GitVersion_FullSemVer }}+${{ github.run_number }}/g' pubspec.yaml
-          cat pubspec.yaml
-      - name: Update version in YAML
-        #run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
-        run:
-          sed -i 's/99.99.99+99/${{ steps.gitversion.outputs.GitVersion_FullSemVer }}+${{ github.run_number }}/g' pubspec.yaml
-
+        id: version
+        run: echo "::set-output name=content::$(cat version.txt)"
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
