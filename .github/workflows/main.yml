@@ -28,6 +28,9 @@ jobs:
           echo "GitVersion Output: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
       - name: Set version output
         run: echo "VERSION=${{ steps.gitversion.outputs.GitVersion_FullSemVer }}" >> $GITHUB_ENV
+      - name: Use version in subsequent steps
+        run: | 
+          echo "Current Version: $VERSION"
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
