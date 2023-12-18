@@ -55,7 +55,7 @@ jobs:
         run: |
           echo "Content: ${{ steps.version.outputs.content }}"
           echo "Run Number: ${{ github.run_number }}"
-          sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
+          sed -i 's/99.99.99+99/${{ steps.gitversion.outputs.GitVersion_FullSemVer }}+${{ github.run_number }}/g' pubspec.yaml
           cat pubspec.yaml
       - name: Update version in YAML
         #run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
