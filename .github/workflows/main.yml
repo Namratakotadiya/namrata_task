@@ -59,8 +59,8 @@ jobs:
           name: gitversion
       - name: Display artifact contents
         run: |
-          chmod +r gitversion/version.txt
-          cat gitversion/version.txt
+          chmod +r ./version.txt
+          cat ./version.txt
       - name: Read version
         id: version
         uses: juliangruber/read-file-action@v1
