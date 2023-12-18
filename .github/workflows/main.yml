@@ -31,6 +31,11 @@ jobs:
       - name: Use version in subsequent steps
         run: | 
           echo "Current Version: $VERSION"
+      - name: Debug GitVersion Output
+        run: |
+          echo "GitVersion Output: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
+      - name: Debug version.txt
+        run: cat version.txt
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
