@@ -80,7 +80,7 @@ jobs:
         run: echo "CONTENT=$(cat version.txt)" >> $GITHUB_ENV
       - name: Print version.txt content in build job
         run: | 
-          echo "Content: $CONTENT"
+          echo "Content: $CONTENT.env"
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
