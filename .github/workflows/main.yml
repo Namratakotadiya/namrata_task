@@ -44,7 +44,7 @@ jobs:
           echo "GitVersion_FullSemVer: ${{ env.GitVersion_FullSemVer }}"
       - name: Update version in YAML
         run: |
-          perl -0777 -pi -e 's/(version: \S+)\n/version: $1+1\n/' pubspec.yaml
+          sed -i 's/version: [0-9]\+\.[0-9]\+\.[0-9]\+/version: ${{ env.GitVersion_FullSemVer }}+1/' pubspec.yaml
       - name: Print pubspec.yaml
         run: cat pubspec.yaml
       - name: Upload version.txt
