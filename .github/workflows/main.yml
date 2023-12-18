@@ -47,7 +47,7 @@ jobs:
          current_version=$(grep -oP 'version: \K[0-9]+\.[0-9]+\.[0-9]+\+[0-9]+' pubspec.yaml)
          IFS='+' read -ra version_parts <<< "$current_version"
          new_version="${version_parts[0]}+$((${version_parts[1]}+1))"
-         sed -i "s/version: $current_version/version: $env.GitVersion_FullSemVer/g" pubspec.yaml
+         sed -i "s/version: $current_version/version: ${{ env.GitVersion_FullSemVer }}/g" pubspec.yaml
       - name: Print pubspec.yaml
         run: cat pubspec.yaml
       - name: Upload version.txt
