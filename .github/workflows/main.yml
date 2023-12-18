@@ -59,7 +59,7 @@ jobs:
           name: gitversion
       - name: Read version
         id: version
-        uses: juliangruber/read-file-action@v1
+        uses: ./read-file-action@v1
         with:
           path: gitversion/version.txt
       - name: Debug GitVersion Output
