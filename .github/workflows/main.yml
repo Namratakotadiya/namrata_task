@@ -58,7 +58,7 @@ jobs:
         with:
           name: gitversion
       - name: Create new file without newline char from version.txt
-        run: tr -d '\n' < version.txt > version1.txt
+        run: tr -d '\n' < gitversion/version.txt > version1.txt
       - name: Read version
         id: version
         uses: juliangruber/read-file-action@v1
@@ -78,22 +78,22 @@ jobs:
         run:
           sed -i 's/99.99.99+99/${{ steps.gitversion.outputs.GitVersion_FullSemVer }}+${{ github.run_number }}/g' pubspec.yaml
 
-      - uses: actions/setup-java@v1
-        with:
-          java-version: '16.x'
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: "3.7.0"
-          channel: 'stable'
-
-      - run: flutter pub get
-      - run: flutter build apk --release
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: release-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+#      - uses: actions/setup-java@v1
+#        with:
+#          java-version: '16.x'
+#
+#      - uses: subosito/flutter-action@v2
+#        with:
+#          flutter-version: "3.7.0"
+#          channel: 'stable'
+#
+#      - run: flutter pub get
+#      - run: flutter build apk --release
+#
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: release-apk
+#          path: build/app/outputs/flutter-apk/app-release.apk
 
 #      - name: Create a Release in GitHub
 #        uses: ncipollo/release-action@v1
