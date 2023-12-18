@@ -83,8 +83,6 @@ name: Updating_Code_Version
 # For this example I'm using a tag named v1.0.2
 on:
   push:
-    tags:
-      - "*"
 
 env:
   JAVA_VERSION: "12.x"
