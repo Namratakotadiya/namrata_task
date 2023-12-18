@@ -69,19 +69,17 @@ jobs:
     needs: [ version ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v1
       - name: Get version.txt
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v2
         with:
           name: gitversion
-          path: path/to/artifact
+          path: .
       - name: Read version
         id: version
-      - run: cat path/to/artifact/world.txt
+        run: echo "::set-output name=content::$(cat version.txt)"
       - name: Print version.txt content in build job
-        run: |  
-         echo "${{ needs.version.outputs.env.GitVersion_FullSemVer }}"
-
+        run: echo "${{ steps.version.outputs.content }}"
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
