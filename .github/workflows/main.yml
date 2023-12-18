@@ -82,7 +82,9 @@ jobs:
         #run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
         run:
           sed -i 's/99.99.99+99/${{ steps.gitversion.outputs.GitVersion_FullSemVer }}+${{ github.run_number }}/g' pubspec.yaml
-
+      - name: ipsds
+        run: |
+         sed -Ei "s/^version: (.*)/version: 1.0.2+2/" app/pubspec.yaml
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
