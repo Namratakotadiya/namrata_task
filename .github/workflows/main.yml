@@ -1,146 +1,82 @@
-#name: Flutter CI
-#
-#on:
-#  push:
-#    branches:
-#      - master
-#
-#jobs:
-#  version:
-#    name: Create version number
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v1
-#      - name: Fetch all history for all tags and branches
-#        run: |
-#          git config remote.origin.url https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-#          git fetch --prune --depth=10000
-#      - name: Install GitVersion
-#        uses: gittools/actions/gitversion/setup@v0.9.7
-#        with:
-#          versionSpec: "5.x"
-#      - name: gitversion
-#        uses: gittools/actions/gitversion/execute@v0.9.7
-#      - name: Create version.txt with nuGetVersion
-#        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
-#      - name: Upload version.txt
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: gitversion
-#          path: version.txt
-#
-#  build:
-#    name: Build APK and Create release
-#    needs: [ version ]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v1
-#      - name: Get version.txt
-#        uses: actions/download-artifact@v2
-#        with:
-#          name: gitversion
-#      - name: Create new file without newline char from version.txt
-#        run: tr -d '\n' < version.txt > version1.txt
-#      - name: Read version
-#        id: version
-#        uses: juliangruber/read-file-action@v1
-#        with:
-#          path: version1.txt
-#      - name: Update version in YAML
-#        run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
-#      - uses: actions/setup-java@v1
-#        with:
-#          java-version: '16.x'
-#
-#      - uses: subosito/flutter-action@v2
-#        with:
-#          flutter-version: "3.7.0"
-#          channel: 'stable'
-#
-#      - run: flutter pub get
-#      - run: flutter build apk --release
-#
-#      - uses: actions/upload-artifact@v2
-#        with:
-#          name: release-apk
-#          path: build/app/outputs/flutter-apk/app-release.apk
-#
-#      - name: Create a Release in GitHub
-#        uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: "build/app/outputs/apk/release/*.apk"
-#          token: ${{ secrets.TOKEN_GITHUB }}
-#          tag: ${{ steps.version.outputs.content }}
-#          commit: ${{ github.sha }}
-#
-#
-#
+name: Flutter CI
 
-
-name: Updating_Code_Version
-
-# This action will be triggered on every new tag
-# For this example I'm using a tag named v1.0.2
 on:
   push:
-    tags:
-      - "*"
-
-env:
-  JAVA_VERSION: "12.x"
-  #change it to your project version
-  FLUTTER_VERSION: "3.7.0"
-  #change it to your project channel
-  FLUTTER_CHANNEL: "stable"
+    branches:
+      - master
 
 jobs:
-  update_code_version:
-    name: Updating the code version and commiting
+  version:
+    name: Create version number
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
+      - name: Fetch all history for all tags and branches
+        run: |
+          git config remote.origin.url https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git fetch --prune --depth=10000
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
         with:
-          # Mandatory to use the extract version from tag action
-          fetch-depth: 0
-      - name: Extract version from tag
-        # With this, we can extract the version of the new tag
-        #  and use it with Cider
-        uses: damienaicheh/extract-version-from-tag-action@v1.0.0
+          versionSpec: "5.x"
+      - name: gitversion
+        uses: gittools/actions/gitversion/execute@v0.9.7
+      - name: Create version.txt with nuGetVersion
+        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
+      - name: Upload version.txt
+        uses: actions/upload-artifact@v2
+        with:
+          name: gitversion
+          path: version.txt
+
+  build:
+    name: Build APK and Create release
+    needs: [ version ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Get version.txt
+        uses: actions/download-artifact@v2
+        with:
+          name: gitversion
+      - name: Create new file without newline char from version.txt
+        run: tr -d '\n' < version.txt > version1.txt
+      - name: Read version
+        id: version
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: version1.txt
+      - name: Update version in YAML
+        run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
       - uses: actions/setup-java@v1
         with:
-          java-version: ${{env.JAVA_VERSION}}
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: ${{env.FLUTTER_CHANNEL}}
-          flutter-version: ${{env.FLUTTER_VERSION}}
+          java-version: '16.x'
 
-      # Get dependencies and generating appbundle
-      # Here I'm using appbundle, feel free to change it to APK
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.7.0"
+          channel: 'stable'
+
       - run: |
           export PATH="$PATH":"$HOME/.pub-cache/bin"
           pub global activate cider
           cider release
           cider version ${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}+${{ env.NUMBER_OF_COMMITS }}
           flutter pub get
-          flutter build appbundle
-      # Here we have already updated the version on pubspec.yaml
-      # But, tha changes are not commited to version control
-      # Now, let's do it!
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: GitHub Actions
-          author_email: actions@github.com
-          # Change it to your own branch
-          branch: main
-          message: "Update version on pubspec.yaml & update change log"
-          # Change it to your own branch
-          push: origin main --force
+      - run: flutter build apk --release
 
-      # Make appbundle downloadable
-      # With that we can get the appbundle and submit on Google Play Store
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v2
         with:
-          name: appbundle_release
-          path: build/app/outputs/bundle/release
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Create a Release in GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*.apk"
+          token: ${{ secrets.TOKEN_GITHUB }}
+          tag: ${{ steps.version.outputs.content }}
+          commit: ${{ github.sha }}
+
+
+
