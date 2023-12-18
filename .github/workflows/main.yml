@@ -57,12 +57,7 @@ jobs:
           flutter-version: "3.7.0"
           channel: 'stable'
 
-      - run: |
-          export PATH="$PATH":"$HOME/.pub-cache/bin"
-          pub global activate cider
-          cider release
-          cider version ${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}+${{ env.NUMBER_OF_COMMITS }}
-          flutter pub get
+      - run: flutter pub get
       - run: flutter build apk --release
 
       - uses: actions/upload-artifact@v2
