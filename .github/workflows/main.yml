@@ -79,9 +79,8 @@ jobs:
         id: version
         run: echo "::set-output name=content::$(cat version.txt)"
       - name: Print version.txt content in build job
-        run: echo "${{ steps.version.outputs.content }}"
-      - name: Print current directory
-        run: pwd version.txt
+        run: echo "${{ steps.version.outputs.GitVersion_FullSemVer }}"
+
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
