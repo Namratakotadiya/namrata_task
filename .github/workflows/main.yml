@@ -75,6 +75,7 @@ jobs:
       - name: Read version
         id: version
         run: echo "::set-output name=content::$(cat version.txt)"
+
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
