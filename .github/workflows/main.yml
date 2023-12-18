@@ -78,7 +78,7 @@ jobs:
       - name: Print version.txt content in build job
         run: echo "${{ steps.version.outputs.content }}"
       - name: Print current directory
-        run: pwd
+        run: pwd version.txt
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
