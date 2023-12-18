@@ -12,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Fetch all history for all tags and branches
-        run: |
-          git config remote.origin.url https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git fetch --prune --depth=10000
+#        run: |
+#          git config remote.origin.url https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+#          git fetch --prune --depth=10000
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
@@ -41,6 +41,11 @@ jobs:
         with:
           name: gitversion
           path: version.txt
+        if: success()
+      - name: Handle error
+        if: failure()
+        run: | 
+          echo "Workflow failed: ${{ job.status }}"
 
   build:
     name: Build APK and Create release
