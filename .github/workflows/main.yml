@@ -61,7 +61,7 @@ jobs:
         #run: sed -i 's/99.99.99+99/${{ steps.version.outputs.content }}+${{ github.run_number }}/g' pubspec.yaml
         run: |
           ls -l pubspec.yaml
-          sed -i "s/99.99.99+99/1.0.2/g" pubspec.yaml
+          sed -i 's/99.99.99+99/${{ steps.gitversion.outputs.GitVersion_FullSemVer }}+${{ github.run_number }}/g' pubspec.yaml
           cat pubspec.yaml
       - uses: actions/setup-java@v1
         with:
