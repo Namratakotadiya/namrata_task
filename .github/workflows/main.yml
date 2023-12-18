@@ -59,13 +59,13 @@ jobs:
           name: gitversion
       - name: Read version
         id: version
-        uses: Namratakotadiya/read-file-action@v1
+        uses: juliangruber/read-file-action@v1
         with:
           path: ./version.txt
           trim: true
-      - name: Read version1
-        id: version2
-        run: echo "CONTENT=$(cat ./version.txt)" >> $GITHUB_ENV
+      - name: Display artifact contents
+        run: |
+          cat gitversion/version.txt
       - name: Debug GitVersion Output
         run: |
          echo "GitVersion Output: ${{ toJson(steps.gitversion.outputs)  }}"
