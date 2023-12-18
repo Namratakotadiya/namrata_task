@@ -22,12 +22,12 @@ jobs:
       - name: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.7
       - name: Create version.txt with nuGetVersion
-        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
+        run: echo ${{ steps.gitversion.outputs.GitVersion_FullSemVer  }} > version.txt
       - name: Capture version in version.txt
         run: |
-          echo "GitVersion Output: ${{ steps.gitversion.outputs.nuGetVersion }}"
+          echo "GitVersion Output: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
       - name: Set version output
-        run: echo "VERSION=${{ steps.gitversion.outputs.nuGetVersion }}" >> $GITHUB_ENV
+        run: echo "VERSION=${{ steps.gitversion.outputs.GitVersion_FullSemVer }}" >> $GITHUB_ENV
       - name: Upload version.txt
         uses: actions/upload-artifact@v2
         with:
@@ -53,7 +53,7 @@ jobs:
           path: version1.txt
       - name: Debugging Info
         run: |
-          echo "Content: ${{ steps.version.outputs.content }}"
+          echo "Content: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
           echo "Run Number: ${{ github.run_number }}"
           sed -i 's/99.99.99+99/${{ steps.gitversion.outputs.GitVersion_FullSemVer }}+${{ github.run_number }}/g' pubspec.yaml
           cat pubspec.yaml
