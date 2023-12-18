@@ -66,6 +66,9 @@ jobs:
       - name: Read version1
         id: version2
         run: echo "CONTENT=$(cat ./version.txt)" >> $GITHUB_ENV
+      - name: Use version content
+        run: |
+         echo "Version Content: ${{ env.CONTENT }}"
       - name: Debug GitVersion Output
         run: |
          echo "GitVersion Output: ${{ toJson(steps.gitversion.outputs)  }}"
