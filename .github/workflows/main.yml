@@ -11,8 +11,9 @@ jobs:
     name: Create version number
     runs-on: ubuntu-latest
     outputs:
-      id: version
-      set: ${{ steps.version.outputs }}
+      id: version-output
+      values:
+        VERSION_CONTENT: ${{ steps.set-version-content.outputs.VERSION_CONTENT }}
     steps:
       - uses: actions/checkout@v1
 #      - name: Fetch all history for all tags and branches
@@ -40,6 +41,10 @@ jobs:
           echo "GitVersion Output: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
       - name: Debug version.txt
         run: cat version.txt
+      - name: Set version content
+        id: set-version-content
+        run: echo "VERSION_CONTENT=$(cat version.txt)"
+        shell: bash
       - name: Print GitVersion_FullSemVer
         run: |
           echo "GitVersion_FullSemVer: ${{ env.GitVersion_FullSemVer }}"
@@ -75,7 +80,8 @@ jobs:
           name: version-artifact
           path: downloaded
       - name: Print version.txt content in build job
-        run: cat downloaded/version.txt
+        run: | 
+         echo "Content: ${{ needs.version.outputs.VERSION_CONTENT }}"
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
