@@ -25,7 +25,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo of ci/cd github action'),
+      home: const MyHomePage(
+          title:
+              'Flutter Demo of ci/cd github action to generate pull request'),
     );
   }
 }
