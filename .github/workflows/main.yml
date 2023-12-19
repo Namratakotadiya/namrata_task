@@ -81,30 +81,30 @@ jobs:
           sed -i "s/version: $current_version/version: ${{ needs.version.outputs.output1 }}/g" pubspec.yaml
       - name: Print pubspec.yaml
         run: cat pubspec.yaml
-#      - uses: actions/setup-java@v1
-#        with:
-#          java-version: '16.x'
-#
-#      - uses: subosito/flutter-action@v2
-#        with:
-#          flutter-version: "3.7.0"
-#          channel: 'stable'
-#
-#      - run: flutter pub get
-#      - run: flutter build apk --release
-#
-#      - uses: actions/upload-artifact@v2
-#        with:
-#          name: release-apk
-#          path: build/app/outputs/flutter-apk/app-release.apk
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '16.x'
 
-#      - name: Create a Release in GitHub
-#        uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: "build/app/outputs/apk/release/*.apk"
-#          token: ${{ secrets.TOKEN_GITHUB }}
-#          tag: ${{ steps.version.outputs.content }}
-#          commit: ${{ github.sha }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.7.0"
+          channel: 'stable'
+
+      - run: flutter pub get
+      - run: flutter build apk --release
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Create a Release in GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/apk/release/*.apk"
+          token: ${{ secrets.TOKEN_GITHUB }}
+          tag: ${{ needs.version.outputs.output1 }}
+          commit: ${{ github.sha }}
 
 
 
