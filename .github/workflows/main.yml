@@ -72,9 +72,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Download version.txt artifact
-          uses: actions/download-artifact@v2
-          with:
-            name: version-artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: version-artifact
       - name: Read version
         id: version
         run: echo "CONTENT=$(cat version.txt)" >> $GITHUB_ENV
