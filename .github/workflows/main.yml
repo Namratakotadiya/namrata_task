@@ -142,19 +142,13 @@ jobs:
            echo " - ${{ env.GIT_COMMIT_MESSAGE_SUBJECT }}"
            echo " - ${{ env.GIT_COMMIT_MESSAGE_SUBJECT_SANITIZED }}"
            echo " - ${{ env.GIT_COMMIT_MESSAGE_BODY }}"
-       - name: Commit and push changes
-         run: |
-           git config user.email "elision.amit@gmail.com"
-           git config user.name "Namratakotadiya"
 
        - name: Create Pull Request
-         uses: peter-evans/create-pull-request@v5.0.0
+         uses: devops-infra/action-pull-request@v0.5.5
          with:
-           commit-message: change color
-           token: ${{ secrets.TOKEN_GITHUB }}
-           branch: nam
-           base: master
+           github_token: ${{ secrets.TOKEN_GITHUB }}
+           source_branch: master
+           target_branch: testing_pr
            title: Automatic PR from master to nam
-           body: |
-               Changes from the master branch have been automatically pushed to the nam branch.
-           labels: auto-merge
+           body:  Changes from the master branch have been automatically pushed to the nam branch.
+
