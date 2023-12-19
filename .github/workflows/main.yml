@@ -34,10 +34,6 @@ jobs:
       output1: ${{ steps.step1.outputs.test }}
     steps:
       - uses: actions/checkout@v1
-#      - name: Fetch all history for all tags and branches
-#        run: |
-#          git config remote.origin.url https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-#          git fetch --prune --depth=10000
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
@@ -46,23 +42,9 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.9.7
       - name: Create version.txt with nuGetVersion
         run: echo ${{ steps.gitversion.outputs.GitVersion_FullSemVer  }} > version.txt
-      - name: Capture version in version.txt
-        run: |
-          echo "GitVersion Output: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
       - name: Set version output
         id: step1
         run: echo "test=${{ env.GitVersion_FullSemVer }}" >> $GITHUB_OUTPUT
-      - name: Use version in subsequent steps
-        run: |
-          echo "Current Version1111: $VERSION"
-      - name: Debug GitVersion Output
-        run: |
-          echo "GitVersion Output: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
-      - name: Debug version.txt
-        run: cat version.txt
-      - name: Print GitVersion_FullSemVer
-        run: |
-          echo "GitVersion_FullSemVer: ${{ env.GitVersion_FullSemVer }}"
       - name: Update version in YAML
         run: |
          current_version=$(grep -oP 'version: \K[0-9]+\.[0-9]+\.[0-9]+\+[0-9]+' pubspec.yaml)
