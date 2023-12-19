@@ -147,8 +147,8 @@ jobs:
          uses: devops-infra/action-pull-request@v0.5.5
          with:
            github_token: ${{ secrets.TOKEN_GITHUB }}
-           source_branch: testing_pr
-           target_branch: master
+           source_branch: master
+           target_branch: testing_pr
            title: Automatic PR from master to nam
            body:  Changes from the master branch have been automatically pushed to the nam branch.
 
