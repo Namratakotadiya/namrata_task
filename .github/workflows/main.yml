@@ -125,7 +125,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '2.x'  # Replace with the Flutter version you are using
+          flutter-version: "3.7.0"
 
       - name: Make changes
         run: |
