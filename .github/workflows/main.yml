@@ -136,7 +136,7 @@ name: test a code
 on:
   push:
     branches:
-      - name
+      - nam
 
 jobs:
   analysis:
