@@ -173,3 +173,5 @@ jobs:
         with:
           base: master
           branch: nam
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
