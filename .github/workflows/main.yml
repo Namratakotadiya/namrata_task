@@ -155,6 +155,6 @@ jobs:
 #      - name: Generate code
 #        run: dart run build_runner build
       - name: Analyze code
-        run: dart analyze .
+        run: flutter analyze .
 
 
