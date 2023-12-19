@@ -11,9 +11,9 @@ jobs:
     name: Create version number
     runs-on: ubuntu-latest
     outputs:
-      id: version-output
-      values:
-        VERSION_CONTENT: ${{ steps.capture-version.outputs.VERSION_CONTENT }}
+    id: version-output
+    values:
+      VERSION_CONTENT: ${{ steps.capture-version.outputs.VERSION_CONTENT }}
     steps:
       - uses: actions/checkout@v1
 #      - name: Fetch all history for all tags and branches
