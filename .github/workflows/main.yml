@@ -144,7 +144,7 @@ jobs:
            echo " - ${{ env.GIT_COMMIT_MESSAGE_BODY }}"
 
        - name: Create Pull Request
-         uses: peter-evans/create-pull-request@v5.0.0
+         uses: devops-infra/action-pull-request@v0.5.5
          with:
            token: ${{ secrets.TOKEN_GITHUB }}
            branch: nam
