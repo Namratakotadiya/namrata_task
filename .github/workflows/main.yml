@@ -43,7 +43,8 @@ jobs:
         run: cat version.txt
       - name: Set version content
         id: set-version-content
-        run: echo "VERSION_CONTENT=$(cat version.txt)"
+        run: |
+          echo "VERSION_CONTENT=$(cat version.txt)" >> $GITHUB_ENV
         shell: bash
       - name: Print GitVersion_FullSemVer
         run: |
