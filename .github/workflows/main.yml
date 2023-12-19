@@ -116,20 +116,19 @@ on:
       - master
 
 jobs:
- createPr:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  createPr:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v2
 
-     - name: Create Pull Request
-       uses: peter-evans/create-pull-request@v3
-       with:
-         token: ${{ secrets.GITHUB_TOKEN }}
-         branch: main
-         base: nam
-         title: Automatic PR from main to nam
-         body: |
-              Changes from the main branch have been automatically pushed to the nam branch.
-
-         labels: auto-merge
+       - name: Create Pull Request
+         uses: peter-evans/create-pull-request@v3
+         with:
+           token: ${{ secrets.GITHUB_TOKEN }}
+           branch: main
+           base: nam
+           title: Automatic PR from main to nam
+           body: |
+               Changes from the main branch have been automatically pushed to the nam branch.
+           labels: auto-merge
