@@ -154,7 +154,6 @@ jobs:
              author: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
              body: |
                Changes from the master branch have been automatically pushed to the nam branch.
-             labels: auto-merge
 
        - name: Commit and push changes
          run: |
