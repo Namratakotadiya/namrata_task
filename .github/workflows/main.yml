@@ -162,4 +162,3 @@ jobs:
            target_branch: testing_pr
            title: Automatic PR from master to nam
            body:  Changes from the master branch have been automatically pushed to the nam branch.
-           push-to-fork: Namratakotadiya/namrata_task
