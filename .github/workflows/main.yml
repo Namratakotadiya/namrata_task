@@ -45,14 +45,6 @@ jobs:
       - name: Set version output
         id: step1
         run: echo "test=${{ env.GitVersion_FullSemVer }}" >> $GITHUB_OUTPUT
-      - name: Update version in YAML
-        run: |
-         current_version=$(grep -oP 'version: \K[0-9]+\.[0-9]+\.[0-9]+\+[0-9]+' pubspec.yaml)
-         IFS='+' read -ra version_parts <<< "$current_version"
-         new_version="${version_parts[0]}+$((${version_parts[1]}+1))"
-         sed -i "s/version: $current_version/version: ${{ env.GitVersion_FullSemVer }}/g" pubspec.yaml
-      - name: Print pubspec.yaml
-        run: cat pubspec.yaml
       - name: Upload version.txt as an artifact
         uses: actions/upload-artifact@v2
         with:
@@ -81,6 +73,14 @@ jobs:
           path: downloaded
       - name: Print version.txt content in build job
         run: cat downloaded/version.txt
+      - name: Update version in YAML
+        run: |
+          current_version=$(grep -oP 'version: \K[0-9]+\.[0-9]+\.[0-9]+\+[0-9]+' pubspec.yaml)
+          IFS='+' read -ra version_parts <<< "$current_version"
+          new_version="${version_parts[0]}+$((${version_parts[1]}+1))"
+          sed -i "s/version: $current_version/version: ${{ env.GitVersion_FullSemVer }}/g" pubspec.yaml
+      - name: Print pubspec.yaml
+        run: cat pubspec.yaml
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
