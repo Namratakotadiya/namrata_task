@@ -122,23 +122,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: "3.7.0"
+     - name: Create Pull Request
+       uses: peter-evans/create-pull-request@v3
+       with:
+         token: ${{ secrets.GITHUB_TOKEN }}
+         branch: main
+         base: nam
+         title: Automatic PR from main to nam
+         body: |
+              Changes from the main branch have been automatically pushed to the nam branch.
 
-#      - name: Make changes
-#        run: |
-#          git add .
-#          git commit -m "Changes some issue solving"
-#
-#      - name: Push changes
-#        run: |
-#          git push origin nam
-
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          commit-message: "Auto-generate pull request"
-          title: "Automated Pull Request"
-          body: "This pull request was automatically generated."
+         labels: auto-merge
