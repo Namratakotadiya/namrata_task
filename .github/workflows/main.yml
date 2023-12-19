@@ -134,9 +134,9 @@
 name: test a code
 
 on:
-  push
+  push:
     branches:
-      - nam
+      - name
 
 jobs:
   analysis:
