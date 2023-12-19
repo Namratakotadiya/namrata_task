@@ -157,8 +157,8 @@ jobs:
        - name: Create Pull Request
          uses: peter-evans/create-pull-request@v3
          with:
-           github_token: ${{ secrets.TOKEN_GITHUB }}
-           source_branch: master
-           target_branch: testing_pr
+           token: ${{ secrets.TOKEN_GITHUB }}
+           base: master
+           branch: testing_pr
            title: Automatic PR from master to nam
            body:  Changes from the master branch have been automatically pushed to the nam branch.
