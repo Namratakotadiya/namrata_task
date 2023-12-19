@@ -116,7 +116,7 @@ on:
       - master
 
 jobs:
- create-pr:
+ createPr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
