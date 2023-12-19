@@ -5,8 +5,6 @@ on:
     branches:
       - master
 
-permissions:
-  contents: read
 
 jobs:
   version:
@@ -67,6 +65,7 @@ jobs:
 
   build:
     name: Build APK and Create release
+    needs: version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -74,16 +73,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: version-artifact
-      - name: Read version
-        id: version
-        run: echo "CONTENT=$(cat version.txt)" >> $GITHUB_ENV
+          path: downloaded
       - name: Print version.txt content in build job
-        run: | 
-          echo "Content: $CONTENT"
-      - name: Debug version.txt content
-        run: |
-          cat version.txt
-          echo "CONTENT=$(cat version.txt)" >> $GITHUB_ENV
+        run: cat downloaded/version.txt
 #      - uses: actions/setup-java@v1
 #        with:
 #          java-version: '16.x'
