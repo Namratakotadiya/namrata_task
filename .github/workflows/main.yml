@@ -150,7 +150,7 @@ jobs:
            branch: nam
            base: master
            title: Automatic PR from master to nam
-           committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
-           author: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
+           committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
+           author: ${{ env.GIT_COMMIT_AUTHOR_NAME }} ${{ env.GIT_COMMIT_AUTHOR_EMAIL }}
            body:  Changes from the master branch have been automatically pushed to the nam branch.
 
