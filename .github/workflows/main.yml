@@ -13,7 +13,7 @@ jobs:
     outputs:
       id: version-output
       values:
-        VERSION_CONTENT: ${{ steps.set-version-content.outputs.VERSION_CONTENT }}
+        VERSION_CONTENT: ${{ steps.capture-version.outputs.VERSION_CONTENT }}
     steps:
       - uses: actions/checkout@v1
 #      - name: Fetch all history for all tags and branches
@@ -41,11 +41,10 @@ jobs:
           echo "GitVersion Output: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
       - name: Debug version.txt
         run: cat version.txt
-      - name: Set version content
-        id: set-version-content
+      - name: Capture version
+        id: capture-version
         run: |
-          echo "VERSION_CONTENT=$(cat version.txt)" >> $GITHUB_ENV
-        shell: bash
+            echo "VERSION_CONTENT=$(cat version.txt)" >> $GITHUB_ENV
       - name: Print GitVersion_FullSemVer
         run: |
           echo "GitVersion_FullSemVer: ${{ env.GitVersion_FullSemVer }}"
