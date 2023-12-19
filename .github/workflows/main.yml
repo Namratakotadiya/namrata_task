@@ -127,14 +127,14 @@ jobs:
         with:
           flutter-version: "3.7.0"
 
-      - name: Make changes
-        run: |
-          git add .
-          git commit -m "Changes some issue solving"
-
-      - name: Push changes
-        run: |
-          git push origin nam
+#      - name: Make changes
+#        run: |
+#          git add .
+#          git commit -m "Changes some issue solving"
+#
+#      - name: Push changes
+#        run: |
+#          git push origin nam
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v3
