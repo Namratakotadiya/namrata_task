@@ -131,8 +131,8 @@ jobs:
          with:
            commit-message: change color
            token: ${{ secrets.TOKEN_GITHUB }}
-           branch: master
-           base: nam
+           branch: nam
+           base: master
            title: Automatic PR from master to nam
            body: |
                Changes from the master branch have been automatically pushed to the nam branch.
