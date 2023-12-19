@@ -51,7 +51,7 @@ jobs:
           echo "GitVersion Output: ${{ steps.gitversion.outputs.GitVersion_FullSemVer }}"
       - name: Set version output
         id: step1
-        run: echo "test=${{ steps.gitversion.outputs.GitVersion_FullSemVer }}" >> $GITHUB_OUTPUT
+        run: echo "test=${{ env.GitVersion_FullSemVer }}" >> $GITHUB_OUTPUT
       - name: Use version in subsequent steps
         run: |
           echo "Current Version1111: $VERSION"
