@@ -113,7 +113,7 @@ name: Auto-generate Pull Request
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   auto-generate-pr:
