@@ -173,29 +173,3 @@
 #        run: dart run build_runner build
 #      - name: Run tests
 #        run: flutter test
-
-name: Your Workflow
-
-on:
-  push:
-    branches:
-      - nam
-
-jobs:
-  your_job:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Install Fastlane
-        run: |
-          if [ -x "$(command -v sudo)" ]; then
-            sudo gem install fastlane -NV
-          else
-            gem install fastlane -NV
-          fi
-
-      - name: Run Fastlane
-        run: fastlane your_lane
