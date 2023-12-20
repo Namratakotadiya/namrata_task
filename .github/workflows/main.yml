@@ -131,7 +131,50 @@
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-name: test a code
+#name: test a code
+#
+#on:
+#  push:
+#    branches:
+#      - nam
+#
+#jobs:
+#  analysis:
+#    name: format
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Install Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          flutter-version: '3.7.11'
+#          channel: 'stable'
+#          architecture: x64
+#      - name: Check Code Format
+#        run: dart format . --set-exit-if-changed
+##      - name: Generate code
+##        run: dart run build_runner build
+#      - name: Analyze code
+#        run: dart analyze .
+#
+#  widget-tests:
+#    name: widget-tests
+#    runs-on: ubuntu-latest
+#    needs: analysis
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: Install Flutter
+#        uses: subosito/flutter-action@v2
+#        with:
+#          flutter-version: '3.7.11'
+#          channel: 'stable'
+#          architecture: x64
+#      - name: Generate code
+#        run: dart run build_runner build
+#      - name: Run tests
+#        run: flutter test
+
+name: Your Workflow
 
 on:
   push:
@@ -139,37 +182,20 @@ on:
       - nam
 
 jobs:
-  analysis:
-    name: format
+  your_job:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.7.11'
-          channel: 'stable'
-          architecture: x64
-      - name: Check Code Format
-        run: dart format . --set-exit-if-changed
-#      - name: Generate code
-#        run: dart run build_runner build
-      - name: Analyze code
-        run: dart analyze .
 
-  widget-tests:
-    name: widget-tests
-    runs-on: ubuntu-latest
-    needs: analysis
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.7.11'
-          channel: 'stable'
-          architecture: x64
-      - name: Generate code
-        run: dart run build_runner build
-      - name: Run tests
-        run: flutter test
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Fastlane
+        run: |
+          if [ -x "$(command -v sudo)" ]; then
+            sudo gem install fastlane -NV
+          else
+            gem install fastlane -NV
+          fi
+
+      - name: Run Fastlane
+        run: fastlane your_lane
